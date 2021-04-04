@@ -1,4 +1,4 @@
-FROM python:3-buster
+FROM python:3-slim
 WORKDIR /usr/src/app
 EXPOSE 50000
 CMD ["python", "./main.py"]
