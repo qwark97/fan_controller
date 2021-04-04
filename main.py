@@ -22,6 +22,7 @@ def turn_on():
     except Exception:
         return jsonify({"status": "error"})
 
+
 @app.route('/off')
 def turn_of():
     try:
@@ -33,12 +34,13 @@ def turn_of():
     except Exception:
         return jsonify({"status": "error"})
 
+
 @app.route('/')
 def measure_temp():
     current_state = 'on' if GPIO.input(FAN_PIN) else 'off'
     try:
         raw = os.popen('vcgencmd measure_temp').readline()
-        m = re.match("temp=(\d+\.?\d*)'C", raw)
+        m = re.match(r"temp=(\d+\.?\d*)'C", raw)
         if not m:
             raise ValueError("Unexpected temperature string:" + raw)
         current_temp = float(m.group(1))
@@ -49,4 +51,4 @@ def measure_temp():
 
 
 if __name__ == "__main__":
-	app.run("0.0.0.0", 50000)
+    app.run("0.0.0.0", 50000)
